@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - Malinja College</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: "class", corePlugins: { preflight: false } };
+    if (localStorage.getItem("crmsTheme") === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.setAttribute("data-bs-theme", "dark");
+    }
+  </script>
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="min-h-screen flex items-center justify-center bg-[#1f3a5f] dark:bg-gray-900 p-4">
+
+  <!-- Music and theme buttons -->
+  <div class="fixed top-4 right-4 flex gap-4">
+    <button onclick="toggleMusic()" class="text-white text-2xl" title="Music on/off"><i class="music-icon bi"></i></button>
+    <button onclick="toggleTheme()" class="text-white text-2xl" title="Change theme"><i class="theme-icon bi"></i></button>
+  </div>
+
+  <div class="card shadow w-full max-w-md">
+    <div class="card-body p-4">
+
+      <div class="text-center mb-3">
+        <i class="bi bi-building text-5xl text-[#17a2b8]"></i>
+        <h4 class="mt-2">Malinja College</h4>
+      </div>
+
+      <!-- Login / Register tabs -->
+      <div class="flex gap-2 mb-3">
+        <button id="tabLogin" class="btn btn-primary flex-1" onclick="showTab('login')">Login</button>
+        <button id="tabRegister" class="btn btn-outline-secondary flex-1" onclick="showTab('register')">Register</button>
+      </div>
+
+      <!-- LOGIN FORM (already filled in) -->
+      <form id="loginForm" onsubmit="login(event)">
+        <div id="loginError" class="alert alert-danger hidden">Incorrect username or password.</div>
+        <div id="loginSuccess" class="alert alert-success hidden">Account created. You can login now.</div>
+
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" value="admin" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" value="admin123" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-full">Login</button>
+        <p class="text-center text-secondary small mt-3 mb-0">Demo account is filled in automatically. Just click Login.</p>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="registerForm" class="hidden" onsubmit="register(event)">
+        <div id="registerError" class="alert alert-danger hidden"></div>
+
+        <div class="mb-3">
+          <label for="regUsername" class="form-label">New Username</label>
+          <input type="text" class="form-control" id="regUsername" required>
+        </div>
+        <div class="mb-3">
+          <label for="regPassword" class="form-label">Password (at least 6 characters)</label>
+          <input type="password" class="form-control" id="regPassword" required>
+        </div>
+        <div class="mb-3">
+          <label for="regConfirm" class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" id="regConfirm" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-full">Create Account</button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="login-footer">
+    &copy; 2026 Malinja College | IMS566 Individual Project | Developed by [Your Name]
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

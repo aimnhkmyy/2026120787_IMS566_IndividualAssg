@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>College Activities - Malinja College</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: "class", corePlugins: { preflight: false } };
+    if (localStorage.getItem("crmsTheme") === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.setAttribute("data-bs-theme", "dark");
+    }
+  </script>
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="activities" class="bg-gray-100 dark:bg-[#121820]">
+
+  <div id="layout"></div>
+
+  <main class="pt-16 px-4 pb-6 md:pt-6 md:px-6 md:ml-64">
+    <h3 class="text-2xl font-semibold text-[#1f3a5f] dark:text-white mb-4">College Activities</h3>
+
+    <div class="card"><div class="card-body">
+      <div class="flex flex-col lg:flex-row gap-2 mb-3">
+        <input type="text" id="searchActivity" class="form-control lg:flex-1"
+               placeholder="Search activity, date or location..."
+               oninput="activityPage = 1; showActivities()">
+        <button class="btn btn-primary" onclick="openAddActivity()">
+          <i class="bi bi-plus-circle"></i> Add Activity
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Activity</th><th>Date &amp; Time</th><th>Location</th><th>Description</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="activityTable"></tbody>
+        </table>
+      </div>
+
+      <div id="activityPager"></div>
+    </div></div>
+  </main>
+
+  <!-- Add / Edit Activity Modal -->
+  <div class="modal fade" id="activityModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="activityModalTitle">Add Activity</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="activityEditIndex">
+          <div class="mb-3">
+            <label class="form-label">Activity Name</label>
+            <input type="text" id="activityName" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Date &amp; Time</label>
+            <input type="date" id="activityDate" data-time="activityTime" class="form-control">
+            <input type="hidden" id="activityTime">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Location</label>
+            <input type="text" id="activityLocation" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea id="activityDescription" class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" onclick="saveActivity()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

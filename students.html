@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Information - Malinja College</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: "class", corePlugins: { preflight: false } };
+    if (localStorage.getItem("crmsTheme") === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.setAttribute("data-bs-theme", "dark");
+    }
+  </script>
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="students" class="bg-gray-100 dark:bg-[#121820]">
+
+  <div id="layout"></div>
+
+  <main class="pt-16 px-4 pb-6 md:pt-6 md:px-6 md:ml-64">
+    <h3 class="text-2xl font-semibold text-[#1f3a5f] dark:text-white mb-4">Student Information</h3>
+
+    <div class="card"><div class="card-body">
+
+      <!-- Search, sorting and buttons -->
+      <div class="flex flex-col lg:flex-row gap-2 mb-3">
+        <input type="text" id="searchStudent" class="form-control lg:flex-1"
+               placeholder="Search by ID, name, programme, block or room..."
+               oninput="studentPage = 1; showStudents()">
+
+        <select id="sortStudentBy" class="form-select lg:w-auto" onchange="studentPage = 1; showStudents()">
+          <option value="id">Sort by: Student ID</option>
+          <option value="name">Sort by: Name</option>
+          <option value="programme">Sort by: Programme</option>
+          <option value="block">Sort by: College Block</option>
+          <option value="room">Sort by: Room Number</option>
+        </select>
+
+        <select id="sortStudentOrder" class="form-select lg:w-auto" onchange="studentPage = 1; showStudents()">
+          <option value="asc">Ascending (A - Z)</option>
+          <option value="desc">Descending (Z - A)</option>
+        </select>
+
+        <button class="btn btn-outline-secondary" onclick="exportStudents()">
+          <i class="bi bi-download"></i> Export CSV
+        </button>
+        <button class="btn btn-primary" onclick="openAddStudent()">
+          <i class="bi bi-plus-circle"></i> Add Student
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Student ID</th><th>Student Name</th><th>Programme</th>
+              <th>College Block</th><th>Room Number</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentTable"></tbody>
+        </table>
+      </div>
+
+      <!-- Page numbers (Previous / 1 / 2 / Next) -->
+      <div id="studentPager"></div>
+    </div></div>
+  </main>
+
+  <!-- Add / Edit Student Modal -->
+  <div class="modal fade" id="studentModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="studentModalTitle">Add Student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="studentEditIndex">
+          <div class="mb-3">
+            <label class="form-label">Student ID</label>
+            <input type="text" id="studentId" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Student Name</label>
+            <input type="text" id="studentName" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Programme</label>
+            <input type="text" id="studentProgramme" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">College Block</label>
+            <select id="studentBlock" class="form-select">
+              <option value="Block A">Block A</option>
+              <option value="Block B">Block B</option>
+              <option value="Block C">Block C</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Room Number</label>
+            <input type="text" id="studentRoom" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" onclick="saveStudent()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
